@@ -1,12 +1,12 @@
 package xyz.nkomarn.harbor.task;
 
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Pose;
 import org.bukkit.metadata.MetadataValue;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import xyz.nkomarn.harbor.Harbor;
 import xyz.nkomarn.harbor.api.ExclusionProvider;
@@ -21,7 +21,7 @@ import java.util.UUID;
 
 import static java.util.stream.Collectors.toList;
 
-public class Checker extends BukkitRunnable {
+public class Checker extends WrappedRunnable {
     private final Set<ExclusionProvider> providers;
     private final Harbor harbor;
     private final Set<UUID> skippingWorlds;
@@ -99,7 +99,7 @@ public class Checker extends BukkitRunnable {
             }
 
             if (config.getBoolean("night-skip.instant-skip")) {
-                Bukkit.getScheduler().runTask(harbor, () -> {
+                harbor.getScheduler().runTask(() -> {
                     world.setTime(config.getInteger("night-skip.daytime-ticks"));
                     clearWeather(world);
                     resetStatus(world);
@@ -252,7 +252,7 @@ public class Checker extends BukkitRunnable {
      */
     public void resetStatus(@NotNull World world) {
         wakeUpPlayers(world);
-        harbor.getServer().getScheduler().runTaskLater(harbor, () -> {
+        harbor.getScheduler().runTaskLater(() -> {
             skippingWorlds.remove(world.getUID());
             harbor.getPlayerManager().clearCooldowns();
             harbor.getMessages().sendRandomChatMessage(world, "messages.chat.night-skipped");
@@ -295,11 +295,7 @@ public class Checker extends BukkitRunnable {
      * @param runnable The task to run on the server thread.
      */
     public void ensureMain(@NotNull Runnable runnable) {
-        if (!Bukkit.isPrimaryThread()) {
-            Bukkit.getScheduler().runTask(harbor, runnable);
-        } else {
-            runnable.run();
-        }
+        harbor.getScheduler().runTask(runnable);
     }
 
     /**

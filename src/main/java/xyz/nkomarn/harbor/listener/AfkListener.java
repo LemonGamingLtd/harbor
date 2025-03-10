@@ -1,5 +1,6 @@
 package xyz.nkomarn.harbor.listener;
 
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,7 +12,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import xyz.nkomarn.harbor.Harbor;
 import xyz.nkomarn.harbor.provider.DefaultAFKProvider;
@@ -105,7 +105,7 @@ public final class AfkListener implements Listener {
     /**
      * Internal class for handling the task of checking player movement; Is a separate task so that we can cancel and restart it easily
      */
-    private final class PlayerMovementChecker extends BukkitRunnable {
+    private final class PlayerMovementChecker extends WrappedRunnable {
         private double checksToMake = 0;
         @Override
         public void run() {

@@ -1,9 +1,9 @@
 package xyz.nkomarn.harbor;
 
 import com.earth2me.essentials.Essentials;
+import me.nahu.scheduler.wrapper.FoliaWrappedJavaPlugin;
 import org.bukkit.World;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import xyz.nkomarn.harbor.api.AFKProvider;
 import xyz.nkomarn.harbor.api.ExclusionProvider;
@@ -20,7 +20,7 @@ import xyz.nkomarn.harbor.util.PlayerManager;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class Harbor extends JavaPlugin {
+public class Harbor extends FoliaWrappedJavaPlugin {
     private Config config;
     private Checker checker;
     private Messages messages;
@@ -44,8 +44,6 @@ public class Harbor extends JavaPlugin {
 
         getCommand("harbor").setExecutor(new HarborCommand(this));
         getCommand("forceskip").setExecutor(new ForceSkipCommand(this));
-
-
 
         if (config.getBoolean("metrics")) {
             new Metrics(this);

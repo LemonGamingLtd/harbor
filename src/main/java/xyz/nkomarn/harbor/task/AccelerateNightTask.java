@@ -1,13 +1,13 @@
 package xyz.nkomarn.harbor.task;
 
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.Statistic;
 import org.bukkit.World;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import xyz.nkomarn.harbor.Harbor;
 import xyz.nkomarn.harbor.util.Config;
 
-public class AccelerateNightTask extends BukkitRunnable {
+public class AccelerateNightTask extends WrappedRunnable {
 
     private final Harbor harbor;
     private final Checker checker;
