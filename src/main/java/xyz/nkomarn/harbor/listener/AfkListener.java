@@ -52,7 +52,7 @@ public final class AfkListener implements Listener {
 
             // We want every player to get a check every 20 ticks. The runnable smooths out checking a certain
             // percentage of players over all 20 ticks. Thusly, the runnable must run on every tick
-            movementChecker.runTaskTimer(harbor, 0, 1);
+            movementChecker.runTaskTimer(harbor, 1, 1);
 
             harbor.getLogger().info("Fallback AFK detection system is enabled");
         } else {
