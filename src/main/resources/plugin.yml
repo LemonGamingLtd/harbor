@@ -3,8 +3,9 @@ description: "Harbor redefines how sleep works in your server, making it easier 
 main: "xyz.nkomarn.harbor.Harbor"
 author: "TechToolbox (@nkomarn)"
 website: "https://nkomarn.xyz"
-version: "1.6.4-SNAPSHOT"
-api-version: "1.14"
+version: "1.7.0-SNAPSHOT"
+api-version: "1.21"
+folia-supported: true
 
 softdepend:
   - "Essentials"
