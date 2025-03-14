@@ -117,6 +117,9 @@ public final class AfkListener implements Listener {
             // We want every player to get a check every 20 ticks. Therefore we check 1/20th of the players
             for (checksToMake += players.size() / 20D; checksToMake > 0 && !players.isEmpty(); checksToMake--) {
                 AfkPlayer afkPlayer = players.poll();
+                if (afkPlayer == null) {
+                    continue;
+                }
                 if (afkPlayer.changed()) {
                     afkProvider.updateActivity(afkPlayer.player);
                 }

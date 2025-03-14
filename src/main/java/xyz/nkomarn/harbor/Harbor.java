@@ -28,13 +28,18 @@ public class Harbor extends FoliaWrappedJavaPlugin {
     private Essentials essentials;
 
     public void onEnable() {
+        getLogger().info("Initialized scheduler of type: " + getScheduler().getImplementationType());
+
         PluginManager pluginManager = getServer().getPluginManager();
 
         config = new Config(this);
         checker = new Checker(this);
         messages = new Messages(this);
         playerManager = new PlayerManager(this);
-        essentials = (Essentials) pluginManager.getPlugin("Essentials");
+        if (pluginManager.isPluginEnabled("Essentials")) {
+            essentials = (Essentials) pluginManager.getPlugin("Essentials");
+            getLogger().info("Successfully hooked into Essentials!");
+        }
 
         Arrays.asList(
                 messages,
